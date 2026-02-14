@@ -11,17 +11,16 @@ import ru.yandex.practicum.avro.User;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.HexFormat;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 public class AvroAssignment1 {
     public static void main(String[] args) throws IOException {
         byte[] bytes = serialize(getUser());
-        log.info("\n\nСкопируйте строку ниже в поле ответа на сайте Практикума:\n\n{}",
-                HexFormat.of().formatHex(bytes));
+        System.out.println("Сериализованные данные в виде массива байтов:");
+        System.out.println(HexFormat.of().formatHex(bytes));
+//        log.info("\n\nСкопируйте строку ниже в поле ответа на сайте Практикума:\n\n{}",
+//                HexFormat.of().formatHex(bytes));
     }
 
     public static byte[] serialize(User user) throws IOException {
