@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static ru.yandex.practicum.assignment.avro.AvroAssignment1.serialize;
 
 class AvroAssignment1Test {
 
@@ -51,7 +52,7 @@ class AvroAssignment1Test {
                 .setId(1000)
                 .build();
 
-        byte[] result = assertDoesNotThrow(() -> AvroAssignment1.serialize(user),
+        byte[] result = assertDoesNotThrow(() -> serialize(user),
                 "Сериализация должна происходить без исключительных ситуаций");
 
         String actual = HexFormat.of().formatHex(result);

@@ -2,4 +2,48 @@
 protocol UserProtocol {
 	// Опишите схему в соответствии с заданием
 	//  ...
-}
+	  /**
+       * Перечисление пола
+       */
+      enum Gender {
+        male,
+        female
+      }
+
+      /**
+       * Пользователь
+       */
+      record User {
+
+        /** 32-битное целое */
+        int id;
+
+        /** Имя */
+        string firstName;
+
+        /**
+         * Может быть null или строкой.
+         */
+        union { null, string } middleName = null;
+
+        /** Фамилия */
+        string lastName;
+
+        /** Массив строк */
+        array<string> interests;
+
+        /**
+         * Логический тип date.
+         */
+        @logicalType("date")
+        int birthdate;
+
+        /** Перечисление */
+        Gender gender;
+
+        /**
+         * Map<String, String>
+         */
+        map<string> contacts;
+      }
+    }
