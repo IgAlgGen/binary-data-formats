@@ -52,14 +52,26 @@
                 <version>${avro.version}</version>
                 <executions>
                     <execution>
-                        <id>schemas</id>
+                        <id>idl-to-protocol</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>idl-protocol</goal>
                         </goals>
                         <configuration>
                             <sourceDirectory>${project.basedir}/src/main/avro/</sourceDirectory>
-                            <outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
+                            <outputDirectory>${project.build.directory}/generated-sources/avro</outputDirectory>
+                            <stringType>String</stringType>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>protocol-to-java</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>protocol</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${project.build.directory}/generated-sources/avro</sourceDirectory>
+                            <outputDirectory>${project.build.directory}/generated-sources/avro</outputDirectory>
                             <stringType>String</stringType>
                         </configuration>
                     </execution>
@@ -79,7 +91,7 @@
                         </goals>
                         <configuration>
                             <sources>
-                                <source>${project.build.directory}/generated-sources</source>
+                                <source>${project.build.directory}/generated-sources/avro</source>
                             </sources>
                         </configuration>
                     </execution>
