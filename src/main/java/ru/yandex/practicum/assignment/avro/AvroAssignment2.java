@@ -1,10 +1,15 @@
 package ru.yandex.practicum.assignment.avro;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.avro.io.BinaryDecoder;
+import org.apache.avro.io.DatumReader;
+import org.apache.avro.io.DecoderFactory;
+import org.apache.avro.specific.SpecificDatumReader;
 import ru.yandex.practicum.avro.DeviceAddedEvent;
 import ru.yandex.practicum.avro.DeviceRemovedEvent;
 import ru.yandex.practicum.avro.HubEvent;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.HexFormat;
 
@@ -12,13 +17,24 @@ import java.util.HexFormat;
 public class AvroAssignment2 {
     public static void main(String[] args) throws IOException {
         HubEvent event = deserialize(HexFormat.of().parseHex("10687562313233343594a4d8989c640010646576313233343504"));
-        log.info("\n\nСкопируйте строку ниже в поле ответа на сайте Практикума:\n\n{}", getAnswer(event));
+        //log.info("\n\nСкопируйте строку ниже в поле ответа на сайте Практикума:\n\n{}", getAnswer(event));
+        System.out.println(
+                "Скопируйте строку ниже в поле ответа на сайте Практикума:\n\n" + getAnswer(event)
+        );
     }
 
     public static HubEvent deserialize(byte[] bytes) throws IOException {
         // Реализуйте метод в соответствии с заданием
         //     ...
-        return null;
+        // Десериализуем двоичные данные обратно в экземпляр класса Order
+
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
+        DatumReader<HubEvent> datumReader = new SpecificDatumReader<>(HubEvent.class);
+        BinaryDecoder decoder =
+                DecoderFactory.get().binaryDecoder(inputStream, null);
+
+        // десериализуем данные заказа
+        return datumReader.read(null, decoder);
     }
 
     // Этот метод нельзя менять
